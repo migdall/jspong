@@ -2,6 +2,7 @@ let canvas;
 let canvasContext;
 let personality = 'sad';
 let ballX = 5;
+let backwards = false;
 
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
@@ -12,7 +13,13 @@ window.onload = function() {
 };
 
 function drawEverything() {
-    ballX = ballX + 10;
+    if (ballX > 640 && backwards === false) {
+        backwards = true;
+    }
+    if (backwards === false) {
+        ballX = ballX + 10;
+    }
+    
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
     canvasContext.fillStyle = 'red';
@@ -21,4 +28,11 @@ function drawEverything() {
     canvasContext.fillRect(300, 200, 200, 200);
     canvasContext.fillStyle = 'rgb(230, 230, 250)';
     canvasContext.fillRect(ballX, 200, 25, 25);
+
+    if (backwards === true) {
+        ballX = ballX - 5;
+    }
+    if (ballX < 0) {
+        backwards = false;
+    }
 }
